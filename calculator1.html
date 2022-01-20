@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>計算機1</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            background-color: rgb(255, 242, 170);
+        }
+        .Calculator{
+            border-radius: 8px;
+            width: 310px;
+            height: auto;
+            background-color: rgb(165, 165, 165);
+        }
+        .allBtn{
+            border-radius: 5px;
+            padding: 7px 4px;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .btn{
+            font-weight: 500;
+            font-size:1.2rem;
+            width: 22%;
+            height:55px;
+            background-color: rgb(226, 226, 226);
+            margin: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+                }
+        .btn:hover{
+            color:#fff;
+            background-color: rgb(209, 209, 209);
+        }
+        .answer{
+            word-wrap: break-word;
+            letter-spacing:2px;
+            font-size: 2rem;
+            padding: 3px 16px;
+            background: rgb(216, 216, 216);
+            min-height: 80px;
+            border-radius: 8px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="Calculator mx-auto mt-4">
+        <div class="answer"></div>
+        <div class="allBtn">
+            <div class="btn add">7</div>
+            <div class="btn add">8</div>
+            <div class="btn add">9</div>
+            <div class="btn add">+</div>
+            <div class="btn add">4</div>
+            <div class="btn add">5</div>
+            <div class="btn add">6</div>
+            <div class="btn add">-</div>
+            <div class="btn add">1</div>
+            <div class="btn add">2</div>
+            <div class="btn add">3</div>
+            <div class="btn add">*</div>
+            <div class="btn delet">AC</div>
+            <div class="btn add">0</div>
+            <div class="btn add">=</div>
+            <div class="btn add">/</div>
+
+        </div>
+    </div>
+
+    <script>
+        // 作法一:
+        // 1.設定一個監聽在最外層 用event.target.innerText抓數字資料
+        // 2.設定一定要class含有btn才會記錄text的資料，event.target.className用indexOF抓設定有含btn(不含字元回報-1，含字元回報字元所在位置)
+        // 3.設定一個變數在最外層重複抓取text資料疊加const totalAnswer=''，2設定的判斷式內再設定if判斷式else部分設定疊加資料時變數要totalAnswer+= X    (x = event.target.innerText)
+        // 4.if部分要設定當抓到的text為'='，就必須要計算使用eval(totalAnswer)執行內部的js，只要在內部加上innerHTML到顯示框answer就可完成運算結果，若要顯示計算的函式可在最外層加上answer.innerHTML=`totalAnswer+'='+ eval(totalAnswer)`
+
+        let totalAnswer = '';
+        // 注意若是用const則無法重新賦值也無法重新宣告，會跳出錯誤Uncaught TypeError: Assignment to constant variable.
+
+        const Calculator = document.querySelector('.Calculator')
+        const answer = document.querySelector('.answer')
+        
+        // answer.innerHTML= totalAnswer + '='+ eval(totalAnswer);
+
+        Calculator.addEventListener('click', Count);
+
+        function Count(e){
+            const target = e.target;
+            console.log('target',target);//target代表的是觸發事件的對象
+            /*
+            const currentTarget = e.currentTarget;
+            console.log('currentTarget',currentTarget);//currntarget代表的是被動觸發的對象，是addeventListener監聽事件掛的對象
+            */
+            const x = target.innerText;
+            console.log('點擊的字:',x);
+
+            console.log('className是否含btn:',target.className.indexOf('btn')!= -1)
+            console.log('className是否含delet位置:',target.className.indexOf('delet'))
+            
+            if(target.className.indexOf('add')!= -1){
+                if(x ==='='){
+                eval(totalAnswer);
+                console.log('計算結果:',eval(totalAnswer))
+                // answer.innerHTML = eval(totalAnswer)
+                answer.innerHTML= totalAnswer + '='+ eval(totalAnswer);
+
+
+            }else{
+                totalAnswer += x
+                // console.log(totalAnswer)
+                answer.innerHTML= totalAnswer;
+            }
+            }else if(target.className.indexOf('delet') === 4){
+                answer.innerHTML=''
+                totalAnswer= '';
+                console.log('delet')
+            }
+
+            console.log('點擊的字累加測試:',totalAnswer);
+
+
+        }
+
+    </script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+</body>
+</html>
