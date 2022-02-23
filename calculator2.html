@@ -83,7 +83,7 @@
     </div>
 
     <script>
-        //作法二: 每個按鈕都下監聽事件都設定class，使用this
+        //作法二: 每個按鈕都下監聽事件都設定class
         let totalAnswer = '';
         const answer = document.querySelector('.answer')
 
@@ -133,7 +133,6 @@
 
         console.log('點擊的字累加測試:',totalAnswer);
 
-        // ------------------------------------
         function count(){
             let clickBtn = this.innerText;
             totalAnswer += clickBtn
@@ -143,7 +142,6 @@
         function equalTo(){
             eval(totalAnswer);
                 console.log('計算結果:',eval(totalAnswer))
-                // answer.innerHTML = eval(totalAnswer)
                 answer.innerHTML= totalAnswer + '='+ eval(totalAnswer);
         }
 
