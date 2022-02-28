@@ -102,8 +102,19 @@
             
             if(target.className.indexOf('add')!= -1){
                 if(x ==='='){
-                eval(totalAnswer);
-                answer.innerHTML= totalAnswer + '='+ eval(totalAnswer);
+                    try {
+                        if(eval(totalAnswer)=== undefined){
+                            answer.innerHTML=''
+                        }else{
+                        eval(totalAnswer);
+                        answer.innerHTML= totalAnswer + '='+ eval(totalAnswer);
+                        totalAnswer= '';
+                    }
+                    } catch (exception) {
+                        answer.innerHTML='無效輸入'
+                        totalAnswer= '';
+                        console.log(`${exception.name}: ${exception.message}`)
+                    }
             }else{
                 totalAnswer += x
                 answer.innerHTML= totalAnswer;
