@@ -102,9 +102,19 @@
             })
         }
         document.querySelector('.equal').addEventListener('click', function(){
+            try {
+                if(eval(totalAnswer)=== undefined){
+                    answer.innerHTML=''
+                }else{
                 eval(totalAnswer);
-                console.log('計算結果:',eval(totalAnswer))
                 answer.innerHTML= totalAnswer + '='+ eval(totalAnswer);
+                totalAnswer= '';
+            }
+            } catch (exception) {
+                answer.innerHTML='無效輸入'
+                totalAnswer= '';
+                console.log(`${exception.name}: ${exception.message}`)
+            }
         })
 
         document.querySelector('.delet').addEventListener('click', function(){
